@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="mainGame">
+        <div id="shop">
+            <center><h2>Shop</h2></center>
+            <div id="upgrades"></div>
+        </div>
+        <div id="buttons">
+            <br><br><br><br>
+            <button onclick="bankButton()">Bank</button>
+            <br>
+            <button onclick="casinoButton()">Casino</button>
+        </div>
+        <h1>Avondale Points</h1>
+        <h2 id="points">0</h2>
+        <h2 id="pps">0 pps</h2>
+        <img src="img/1.png" onclick="clicker()" width="400px" height="300px" id="clicker">
+        <img id="eventImage" src="img/desire.png" width="300px" height="300px" style="position: absolute;">
+    </div>
+    <div id="bankPoints" style="display: none;"></div>
+    
+    <script src="index.js"></script>
+</body>
+</html>

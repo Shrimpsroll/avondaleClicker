@@ -1,0 +1,47 @@
+#shop {
+    float: right;
+    background-color: grey;
+    width: 500px;
+    height: 96vh;
+}
+#casino{
+    float: right;
+    background-image: url('img/casino.png');
+    background-repeat: repeat;
+    width: 500px;
+    height: 96vh;
+}
+#bank{
+    float: right;
+    background-image: url('img/gold.png'); 
+    width: 500px;
+    height: 96vh;
+}
+#maingame {
+    height: 100%;
+    overflow: hidden;
+}
+button {
+    padding: 5px;
+    margin: 3px;
+}
+
+#buttons {
+    float: right;
+}
+#clicker {
+    cursor: pointer;
+}
+
+#slot-machine { margin: 50px auto; 
+}
+.slot { 
+    display: inline-block; width: 50px; height: 50px; border: 1px solid #000; line-height: 50px; 
+    background-color: white;
+}
+#spin-button { 
+    margin-top: 20px; padding: 10px 20px; 
+}
+#result { 
+    margin-top: 20px; font-size: 1.2em; 
+}

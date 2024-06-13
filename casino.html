@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="mainGame">
+        <div id="casino">
+            <center><h2 style="color: white;">Casino</h2></center>
+            <center><input type="number" id="casinoPoints" name="casinoName"></center>
+            <center><button onclick="coinflip()">Start Coinflip</button></center>
+            <br>
+            <center>
+                <div id="slot-machine">
+                    <div id="slot1" class="slot">0</div>
+                    <div id="slot2" class="slot">0</div>
+                    <div id="slot3" class="slot">0</div>
+                </div>
+                <button id="spin-button" onclick="spin()">Spin</button>
+                <p id="result"></p>
+            </center>
+            
+
+
+        </div>
+        <div id="buttons">
+            <br><br><br><br>
+            <button onclick="homeButton()">Upgrades</button>
+            <br>
+            <button onclick="bankButton()">Bank</button>
+        </div>
+        <h1>Avondale Points</h1>
+        <h2 id="points">0</h2>
+        <h2 id="pps">0 pps</h2>
+        <img src="img/1.png" onclick="clicker()" width="400px" height="300px" id="clicker">
+        <img id="eventImage" src="img/desire.png" width="300px" height="300px" style="position: absolute;">
+    </div>
+    <div id="upgrades" style="display: none;"></div>
+    <div id="bankPoints" style="display: none;"></div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
