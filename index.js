@@ -331,19 +331,19 @@ function gameEventImage(){
         ppc = ppc * 2;
         setTimeout(() => {
             pps = pps - oldpps;
-        }, 5000);
+        }, 20000);
         
         setTimeout(() => {
             ppc = ppc - oldppc;
-        }, 5000);
+        }, 20000);
 
         setTimeout(() => {
             gameEvent = false;
-        }, 5000);
+        }, 20000);
         
         setTimeout(() => {
             eventImage.style.display = "none";
-        }, 5000);
+        }, 10000);
     } if (rng === 2){
         eventImage.style.display = "block";
         eventImage.src = "img/desire.png";
