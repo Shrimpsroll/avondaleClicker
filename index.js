@@ -5,6 +5,8 @@ var pps = 0;
 var bankPoints = 0;
 var background = ''; // Add a variable to store the background
 var gameEvent = false;
+var kunzCoin = 0;
+var kunzCoinMultiplier = 0.15;
 
 // Upgrade data
 var upgrades = [
@@ -17,8 +19,20 @@ var upgrades = [
     { title: 'Mixures', type: 'ppc', baseCost: 1000, cost: 1000, effect: 5 },
     { title: 'Tissue', type: 'pps', baseCost: 5000, cost: 5000, effect: 8 },
     { title: 'Organ', type: 'ppc', baseCost: 6000, cost: 6000, effect: 8.5},
-    { title: 'System', type: 'pps', baseCost: 20000, cost: 20000, effect: 15.2 },
-    { title: 'David (The Hot One)', type: 'bg', baseCost: 30000, cost: 30000, effect: "url('img/davidBG.JPG')" },
+    { title: 'System', type: 'pps', baseCost: 12000, cost: 20000, effect: 50.2 },
+    { title: 'David (The Hot One)', type: 'bg', baseCost: 30000, cost: 30000, effect: "url('img/davidBG.png')" },
+    { title: 'Ethan Smith', type: 'ppc', baseCost: 40000, cost: 40000, effect: 50.4 },
+    { title: 'Organism', type: 'pps', baseCost: 40000, cost: 40000, effect: 200 },
+    { title: 'Slay The Dragon', type: 'pps', baseCost: 69000, cost: 69000, effect: 110 },
+    { title: 'Cutie Patootie', type: 'pps', baseCost: 80000, cost: 80000, effect: 450 },
+    { title: 'Chick Puller', type: 'pps', baseCost: 100000, cost: 100000, effect: 600 },
+    { title: 'Caleb', type: 'bg', baseCost: 200000, cost: 200000, effect: "url('img/caleb.png')" },
+    { title: 'Mushboi21', type: 'pps', baseCost: 500000, cost: 500000, effect: 1001 },
+    { title: 'School Captain', type: 'ppc', baseCost: 750000, cost: 750000, effect: 100 },
+    { title: 'Frenchie', type: 'pps', baseCost: 1000000, cost: 1000000, effect: 8500 },
+    { title: 'Broccoli', type: 'pps', baseCost: 2000000, cost: 2000000, effect: 9000 },
+    { title: 'Obesity', type: 'pps', baseCost: 4000000, cost: 4000000, effect: 10000 },
+    { title: 'Fat Archie', type: 'bg', baseCost: 10000000, cost: 10000000, effect: "url('img/archie.png')" }
 ];
 
 // Intervals
@@ -30,18 +44,21 @@ setInterval(interest, 30000);
 
 // Function declarations
 function clicker() {
-    points += ppc;
+    points = points + ppc * (1 + kunzCoin * kunzCoinMultiplier);
     updateDisplay();
 }
 
 function updateDisplay() {
-    document.getElementById("points").innerHTML = Math.abs(formatNumber(points));
-    document.getElementById('pps').innerHTML = formatNumber(pps) + " PPS";
-    document.getElementById('bankPoints').innerHTML = formatNumber(bankPoints);
+    const newPPS = pps * (1 + kunzCoin * kunzCoinMultiplier);
+    document.getElementById("points").innerHTML = Math.abs(points).toLocaleString('en-US');
+    document.getElementById('pps').innerHTML = newPPS.toLocaleString('en-US') + " PPS";
+    document.getElementById('bankPoints').innerHTML = bankPoints.toLocaleString('en-US');
+    document.getElementById('kunzCoin').innerHTML = kunzCoin + " Kunz Coins";
+    document.getElementById('multi').innerHTML = "Your current Multiplier is " + Math.floor(kunzCoinMultiplier * kunzCoin * 100) + "%"
 }
 
 function secondFunction() {
-    points += pps;
+    points = points + pps * (1 + kunzCoin * kunzCoinMultiplier);
     updateDisplay();
 }
 
@@ -52,6 +69,7 @@ function createUpgradeButtons() {
     upgrades.forEach((upgrade, index) => {
         const button = document.createElement('button');
         button.id = `upgrade-${index}`;
+        button.className = `button-4`;
         if (upgrade.type === 'ppc' || upgrade.type === 'pps') {
             button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost} Gives: ${upgrade.effect} ${upgrade.type})`;
         } else {
@@ -76,6 +94,13 @@ function buyUpgrade(index) {
         upgrade.cost = Math.floor(upgrade.cost * 1.2); // Increase cost exponentially
         document.getElementById(`upgrade-${index}`).innerHTML = `${upgrade.title} (Cost: ${upgrade.cost} Gives: ${upgrade.effect} ${upgrade.type})`;
         }
+        if (index === upgrades.length - 1) {
+            // Show a button or perform an action when the last upgrade is purchased
+            const lastUpgradeButton = document.getElementById('last-upgrade-button');
+            if (lastUpgradeButton) {
+                lastUpgradeButton.style.display = 'block';
+            }
+        }
         updateDisplay();
         saveGame();
     } else {
@@ -92,7 +117,8 @@ function saveGame() {
         pps: pps,
         upgrades: upgrades,
         background: background, // Save the background
-        bankPoints: bankPoints
+        bankPoints: bankPoints,
+        kunzCoin: kunzCoin
     };
     localStorage.setItem('gameState', JSON.stringify(gameState));
 }}
@@ -109,6 +135,7 @@ function loadGame() {
         upgrades = gameState.upgrades;
         background = gameState.background; // Load the background
         bankPoints = gameState.bankPoints;
+        kunzCoin = gameState.kunzCoin;
 
         // Apply background upgrade if already purchased
         if (background) {
@@ -174,17 +201,26 @@ function resetGame() {
     bankPoints = 0;
     background = '';
     upgrades = [
-        { title: 'Quark', type: 'ppc', baseCost: 10, cost: 10, effect: 0.1 },
-        { title: 'Proton', type: 'pps', baseCost: 20, cost: 20, effect: 0.1 },
-        { title: 'Atom', type: 'pps', baseCost: 100, cost: 100, effect: 1.1 },
-        { title: 'Atom Accelerator', type: 'ppc', baseCost: 100, cost: 100, effect: 1.1 },
-        { title: 'Archie', type: 'bg', baseCost: 200, cost: 200, effect: "url('img/archie.JPG')" },
-        { title: 'Molecule', type: 'pps', baseCost: 1000, cost: 1000, effect: 5 },
-        { title: 'Mixures', type: 'ppc', baseCost: 1000, cost: 1000, effect: 5 },
-        { title: 'Tissue', type: 'pps', baseCost: 5000, cost: 5000, effect: 8 },
-        { title: 'Organ', type: 'ppc', baseCost: 6000, cost: 6000, effect: 8.5},
-        { title: 'System', type: 'pps', baseCost: 20000, cost: 20000, effect: 15.2 },
-        { title: 'David (The Hot One)', type: 'bg', baseCost: 30000, cost: 30000, effect: "url('img/davidBG.JPG')" },
+    { title: 'Quark', type: 'ppc', baseCost: 10, cost: 10, effect: 0.1 },
+    { title: 'Proton', type: 'pps', baseCost: 20, cost: 20, effect: 0.1 },
+    { title: 'Atom', type: 'pps', baseCost: 100, cost: 100, effect: 1.1 },
+    { title: 'Atom Accelerator', type: 'ppc', baseCost: 100, cost: 100, effect: 1.1 },
+    { title: 'Archie', type: 'bg', baseCost: 200, cost: 200, effect: "url('img/archie.JPG')" },
+    { title: 'Molecule', type: 'pps', baseCost: 1000, cost: 1000, effect: 5 },
+    { title: 'Mixures', type: 'ppc', baseCost: 1000, cost: 1000, effect: 5 },
+    { title: 'Tissue', type: 'pps', baseCost: 5000, cost: 5000, effect: 8 },
+    { title: 'Organ', type: 'ppc', baseCost: 6000, cost: 6000, effect: 8.5},
+    { title: 'System', type: 'pps', baseCost: 12000, cost: 20000, effect: 50.2 },
+    { title: 'David (The Hot One)', type: 'bg', baseCost: 30000, cost: 30000, effect: "url('img/davidBG.png')" },
+    { title: 'Ethan Smith', type: 'ppc', baseCost: 40000, cost: 40000, effect: 50.4 },
+    { title: 'Organism', type: 'pps', baseCost: 40000, cost: 40000, effect: 200 },
+    { title: 'Slay The Dragon', type: 'pps', baseCost: 69000, cost: 69000, effect: 110 },
+    { title: 'Cutie Patootie', type: 'pps', baseCost: 80000, cost: 80000, effect: 450 },
+    { title: 'Chick Puller', type: 'pps', baseCost: 100000, cost: 100000, effect: 600 },
+    { title: 'Caleb', type: 'bg', baseCost: 200000, cost: 200000, effect: "url('img/caleb.png')" },
+    { title: 'Mushboi21', type: 'pps', baseCost: 500000, cost: 500000, effect: 1001 },
+    { title: 'School Captain', type: 'ppc', baseCost: 750000, cost: 750000, effect: 100 },
+    { title: 'Frenchie', type: 'pps', baseCost: 1000000, cost: 1000000, effect: 8500 }
     ];
     document.body.style.background = '';
     updateDisplay();
@@ -202,7 +238,7 @@ function coinflip(){
             // Win scenario (double the points)
             const winnings = +input;
             points = points + winnings;
-            alert(`You won the coinflip and doubled your points! You earned ${formatNumber(winnings)} points.`);
+            alert(`You won the coinflip and doubled your points! You earned ${winnings.toLocaleString('US-en')} points.`);
         } else {
             points = points - +input;
             alert(`You lost the coinflip idiot`)
@@ -326,15 +362,12 @@ function gameEventImage(){
         }, 5000);
     }
 }
-function formatNumber(num) {
-    if (num >= 1e12) {
-        return (num / 1e12).toFixed(1) + 'T'; // Divide by 1 trillion and append 'T'
-    } else if (num >= 1e9) {
-        return (num / 1e9).toFixed(1) + 'B'; // Divide by 1 billion and append 'B'
-    } else if (num >= 1e6) {
-        return (num / 1e6).toFixed(1) + 'M'; // Divide by 1 million and append 'M'
-    } else if (num >= 1e3) {
-        return (num / 1e3).toFixed(1) + 'K'; // Divide by 1 thousand and append 'K'
-    }
-    return num.toLocaleString(); // Return the number as a string if less than 1 thousand
+
+// prestige
+function handleLastUpgrade() {
+    alert('Congratulations! You have Prestiged and earned 1 kunz coin. Kunz Coins give you a multiplier!!!');
+    resetGame();
+    kunzCoin = kunzCoin + 1;
+    document.getElementById('kunzCoin').style.display = "none";
+    // Perform additional actions as needed
 }
