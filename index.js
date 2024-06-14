@@ -40,6 +40,7 @@ setInterval(secondFunction, 1000);
 // Save game periodically
 setInterval(saveGame, 10000);
 setInterval(interest, 30000);
+setInterval(gameEventImage, 100000);
 
 
 // Function declarations
