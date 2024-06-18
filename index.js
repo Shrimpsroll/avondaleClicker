@@ -73,6 +73,7 @@ function createUpgradeButtons() {
         button.className = `button-4`;
         if (upgrade.type === 'ppc' || upgrade.type === 'pps') {
             button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost.toLocaleString('US-en')} Gives: ${upgrade.effect} ${upgrade.type})`;
+            button.disabled = true;
         } else {
             button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost.toLocaleString('US-en')})`;
         }
@@ -216,15 +217,15 @@ function resetGame() {
         { title: 'Ethan Smith', type: 'ppc', baseCost: 40000, cost: 40000, effect: 50.4 },
         { title: 'Organism', type: 'pps', baseCost: 40000, cost: 40000, effect: 200 },
         { title: 'Slay The Dragon', type: 'pps', baseCost: 69000, cost: 69000, effect: 250 },
-        { title: 'Cutie Patootie', type: 'pps', baseCost: 80000, cost: 80000, effect: 450 },
-        { title: 'Chick Puller', type: 'pps', baseCost: 100000, cost: 100000, effect: 600 },
-        { title: 'Caleb', type: 'bg', baseCost: 200000, cost: 200000, effect: "url('img/caleb.png')" },
-        { title: 'Mushboi21', type: 'pps', baseCost: 500000, cost: 500000, effect: 1001 },
-        { title: 'School Captain', type: 'ppc', baseCost: 750000, cost: 750000, effect: 100 },
-        { title: 'Frenchie', type: 'pps', baseCost: 1000000, cost: 1000000, effect: 8500 },
-        { title: 'Broccoli', type: 'pps', baseCost: 2000000, cost: 2000000, effect: 9000 },
-        { title: 'Obesity', type: 'pps', baseCost: 40000000, cost: 40000000, effect: 10000 },
-        { title: 'Fat Archie', type: 'bg', baseCost: 100000000, cost: 100000000, effect: "url('img/archie.png')" }
+        { title: 'Cutie Patootie', type: 'pps', baseCost: 800000, cost: 800000, effect: 450 },
+        { title: 'Chick Puller', type: 'pps', baseCost: 1000000, cost: 1000000, effect: 600 },
+        { title: 'Caleb', type: 'bg', baseCost: 2000000, cost: 2000000, effect: "url('img/caleb.png')" },
+        { title: 'Mushboi21', type: 'pps', baseCost: 5000000, cost: 5000000, effect: 1001 },
+        { title: 'School Captain', type: 'ppc', baseCost: 7500000, cost: 7500000, effect: 100 },
+        { title: 'Frenchie', type: 'pps', baseCost: 10000000, cost: 10000000, effect: 8500 },
+        { title: 'Broccoli', type: 'pps', baseCost: 20000000, cost: 20000000, effect: 9000 },
+        { title: 'Obesity', type: 'pps', baseCost: 400000000, cost: 400000000, effect: 10000 },
+        { title: 'Fat Archie', type: 'bg', baseCost: 1000000000, cost: 1000000000, effect: "url('img/archie.png')" }
     ];
     document.body.style.background = '';
     updateDisplay();
