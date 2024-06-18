@@ -23,7 +23,7 @@ var upgrades = [
     { title: 'David (The Hot One)', type: 'bg', baseCost: 30000, cost: 30000, effect: "url('img/davidBG.png')" },
     { title: 'Ethan Smith', type: 'ppc', baseCost: 40000, cost: 40000, effect: 50.4 },
     { title: 'Organism', type: 'pps', baseCost: 40000, cost: 40000, effect: 200 },
-    { title: 'Slay The Dragon', type: 'pps', baseCost: 69000, cost: 69000, effect: 110 },
+    { title: 'Slay The Dragon', type: 'pps', baseCost: 69000, cost: 69000, effect: 250 },
     { title: 'Cutie Patootie', type: 'pps', baseCost: 80000, cost: 80000, effect: 450 },
     { title: 'Chick Puller', type: 'pps', baseCost: 100000, cost: 100000, effect: 600 },
     { title: 'Caleb', type: 'bg', baseCost: 200000, cost: 200000, effect: "url('img/caleb.png')" },
@@ -31,8 +31,8 @@ var upgrades = [
     { title: 'School Captain', type: 'ppc', baseCost: 750000, cost: 750000, effect: 100 },
     { title: 'Frenchie', type: 'pps', baseCost: 1000000, cost: 1000000, effect: 8500 },
     { title: 'Broccoli', type: 'pps', baseCost: 2000000, cost: 2000000, effect: 9000 },
-    { title: 'Obesity', type: 'pps', baseCost: 4000000, cost: 4000000, effect: 10000 },
-    { title: 'Fat Archie', type: 'bg', baseCost: 10000000, cost: 10000000, effect: "url('img/archie.png')" }
+    { title: 'Obesity', type: 'pps', baseCost: 40000000, cost: 40000000, effect: 10000 },
+    { title: 'Fat Archie', type: 'bg', baseCost: 100000000, cost: 100000000, effect: "url('img/archie.png')" }
 ];
 
 // Intervals
@@ -72,9 +72,9 @@ function createUpgradeButtons() {
         button.id = `upgrade-${index}`;
         button.className = `button-4`;
         if (upgrade.type === 'ppc' || upgrade.type === 'pps') {
-            button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost} Gives: ${upgrade.effect} ${upgrade.type})`;
+            button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost.toLocaleString('US-en')} Gives: ${upgrade.effect} ${upgrade.type})`;
         } else {
-            button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost})`;
+            button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost.toLocaleString('US-en')})`;
         }
         button.onclick = () => buyUpgrade(index);
         upgradesContainer.appendChild(button);
@@ -93,7 +93,7 @@ function buyUpgrade(index) {
         }
         if(upgrade.type === 'ppc' || upgrade.type === 'pps'){
         upgrade.cost = Math.floor(upgrade.cost * 1.2); // Increase cost exponentially
-        document.getElementById(`upgrade-${index}`).innerHTML = `${upgrade.title} (Cost: ${upgrade.cost} Gives: ${upgrade.effect} ${upgrade.type})`;
+        document.getElementById(`upgrade-${index}`).innerHTML = `${upgrade.title} (Cost: ${upgrade.cost.toLocaleString('US-en')} Gives: ${upgrade.effect.toLocaleString('US-en')} ${upgrade.type})`;
         }
         if (index === upgrades.length - 1) {
             // Show a button or perform an action when the last upgrade is purchased
@@ -202,26 +202,29 @@ function resetGame() {
     bankPoints = 0;
     background = '';
     upgrades = [
-    { title: 'Quark', type: 'ppc', baseCost: 10, cost: 10, effect: 0.1 },
-    { title: 'Proton', type: 'pps', baseCost: 20, cost: 20, effect: 0.1 },
-    { title: 'Atom', type: 'pps', baseCost: 100, cost: 100, effect: 1.1 },
-    { title: 'Atom Accelerator', type: 'ppc', baseCost: 100, cost: 100, effect: 1.1 },
-    { title: 'Archie', type: 'bg', baseCost: 200, cost: 200, effect: "url('img/archie.JPG')" },
-    { title: 'Molecule', type: 'pps', baseCost: 1000, cost: 1000, effect: 5 },
-    { title: 'Mixures', type: 'ppc', baseCost: 1000, cost: 1000, effect: 5 },
-    { title: 'Tissue', type: 'pps', baseCost: 5000, cost: 5000, effect: 8 },
-    { title: 'Organ', type: 'ppc', baseCost: 6000, cost: 6000, effect: 8.5},
-    { title: 'System', type: 'pps', baseCost: 12000, cost: 20000, effect: 50.2 },
-    { title: 'David (The Hot One)', type: 'bg', baseCost: 30000, cost: 30000, effect: "url('img/davidBG.png')" },
-    { title: 'Ethan Smith', type: 'ppc', baseCost: 40000, cost: 40000, effect: 50.4 },
-    { title: 'Organism', type: 'pps', baseCost: 40000, cost: 40000, effect: 200 },
-    { title: 'Slay The Dragon', type: 'pps', baseCost: 69000, cost: 69000, effect: 110 },
-    { title: 'Cutie Patootie', type: 'pps', baseCost: 80000, cost: 80000, effect: 450 },
-    { title: 'Chick Puller', type: 'pps', baseCost: 100000, cost: 100000, effect: 600 },
-    { title: 'Caleb', type: 'bg', baseCost: 200000, cost: 200000, effect: "url('img/caleb.png')" },
-    { title: 'Mushboi21', type: 'pps', baseCost: 500000, cost: 500000, effect: 1001 },
-    { title: 'School Captain', type: 'ppc', baseCost: 750000, cost: 750000, effect: 100 },
-    { title: 'Frenchie', type: 'pps', baseCost: 1000000, cost: 1000000, effect: 8500 }
+        { title: 'Quark', type: 'ppc', baseCost: 10, cost: 10, effect: 0.1 },
+        { title: 'Proton', type: 'pps', baseCost: 20, cost: 20, effect: 0.1 },
+        { title: 'Atom', type: 'pps', baseCost: 100, cost: 100, effect: 1.1 },
+        { title: 'Atom Accelerator', type: 'ppc', baseCost: 100, cost: 100, effect: 1.1 },
+        { title: 'Archie', type: 'bg', baseCost: 200, cost: 200, effect: "url('img/archie.JPG')" },
+        { title: 'Molecule', type: 'pps', baseCost: 1000, cost: 1000, effect: 5 },
+        { title: 'Mixures', type: 'ppc', baseCost: 1000, cost: 1000, effect: 5 },
+        { title: 'Tissue', type: 'pps', baseCost: 5000, cost: 5000, effect: 8 },
+        { title: 'Organ', type: 'ppc', baseCost: 6000, cost: 6000, effect: 8.5},
+        { title: 'System', type: 'pps', baseCost: 12000, cost: 20000, effect: 50.2 },
+        { title: 'David (The Hot One)', type: 'bg', baseCost: 30000, cost: 30000, effect: "url('img/davidBG.png')" },
+        { title: 'Ethan Smith', type: 'ppc', baseCost: 40000, cost: 40000, effect: 50.4 },
+        { title: 'Organism', type: 'pps', baseCost: 40000, cost: 40000, effect: 200 },
+        { title: 'Slay The Dragon', type: 'pps', baseCost: 69000, cost: 69000, effect: 250 },
+        { title: 'Cutie Patootie', type: 'pps', baseCost: 80000, cost: 80000, effect: 450 },
+        { title: 'Chick Puller', type: 'pps', baseCost: 100000, cost: 100000, effect: 600 },
+        { title: 'Caleb', type: 'bg', baseCost: 200000, cost: 200000, effect: "url('img/caleb.png')" },
+        { title: 'Mushboi21', type: 'pps', baseCost: 500000, cost: 500000, effect: 1001 },
+        { title: 'School Captain', type: 'ppc', baseCost: 750000, cost: 750000, effect: 100 },
+        { title: 'Frenchie', type: 'pps', baseCost: 1000000, cost: 1000000, effect: 8500 },
+        { title: 'Broccoli', type: 'pps', baseCost: 2000000, cost: 2000000, effect: 9000 },
+        { title: 'Obesity', type: 'pps', baseCost: 40000000, cost: 40000000, effect: 10000 },
+        { title: 'Fat Archie', type: 'bg', baseCost: 100000000, cost: 100000000, effect: "url('img/archie.png')" }
     ];
     document.body.style.background = '';
     updateDisplay();
@@ -369,6 +372,6 @@ function handleLastUpgrade() {
     alert('Congratulations! You have Prestiged and earned 1 kunz coin. Kunz Coins give you a multiplier!!!');
     resetGame();
     kunzCoin = kunzCoin + 1;
-    document.getElementById('kunzCoin').style.display = "none";
+    document.getElementById('last-upgrade-button').style.display = "none";
     // Perform additional actions as needed
 }
