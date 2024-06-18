@@ -15,8 +15,8 @@ var upgrades = [
     { title: 'Atom', type: 'pps', baseCost: 100, cost: 100, effect: 1.1 },
     { title: 'Atom Accelerator', type: 'ppc', baseCost: 100, cost: 100, effect: 1.1 },
     { title: 'Archie', type: 'bg', baseCost: 200, cost: 200, effect: "url('img/archie.JPG')" },
-    { title: 'Molecule', type: 'pps', baseCost: 1000, cost: 1000, effect: 5 },
-    { title: 'Mixures', type: 'ppc', baseCost: 1000, cost: 1000, effect: 5 },
+    { title: 'Molecule', type: 'pps', baseCost: 2000, cost: 2000, effect: 5 },
+    { title: 'Mixures', type: 'ppc', baseCost: 2000, cost: 2000, effect: 5 },
     { title: 'Tissue', type: 'pps', baseCost: 5000, cost: 5000, effect: 8 },
     { title: 'Organ', type: 'ppc', baseCost: 6000, cost: 6000, effect: 8.5},
     { title: 'System', type: 'pps', baseCost: 12000, cost: 20000, effect: 50.2 },
@@ -73,7 +73,6 @@ function createUpgradeButtons() {
         button.className = `button-4`;
         if (upgrade.type === 'ppc' || upgrade.type === 'pps') {
             button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost.toLocaleString('US-en')} Gives: ${upgrade.effect} ${upgrade.type})`;
-            button.disabled = true;
         } else {
             button.innerHTML = `${upgrade.title} (Cost: ${upgrade.cost.toLocaleString('US-en')})`;
         }
@@ -208,8 +207,8 @@ function resetGame() {
         { title: 'Atom', type: 'pps', baseCost: 100, cost: 100, effect: 1.1 },
         { title: 'Atom Accelerator', type: 'ppc', baseCost: 100, cost: 100, effect: 1.1 },
         { title: 'Archie', type: 'bg', baseCost: 200, cost: 200, effect: "url('img/archie.JPG')" },
-        { title: 'Molecule', type: 'pps', baseCost: 1000, cost: 1000, effect: 5 },
-        { title: 'Mixures', type: 'ppc', baseCost: 1000, cost: 1000, effect: 5 },
+        { title: 'Molecule', type: 'pps', baseCost: 2000, cost: 2000, effect: 5 },
+        { title: 'Mixures', type: 'ppc', baseCost: 2000, cost: 2000, effect: 5 },
         { title: 'Tissue', type: 'pps', baseCost: 5000, cost: 5000, effect: 8 },
         { title: 'Organ', type: 'ppc', baseCost: 6000, cost: 6000, effect: 8.5},
         { title: 'System', type: 'pps', baseCost: 12000, cost: 20000, effect: 50.2 },
